@@ -3,11 +3,9 @@
     <div class="wrapper-content">
       <section>
         <div class="container">
-          <h1>{{ title }}</h1>
+          <h1 class="title">{{ title }}</h1>
 
-          <div class="error-message" v-if="errorMessage">
-            {{ errorMessage }}
-          </div>
+          <Message v-if="message" :message="message" />
 
           <div class="new-note">
             <input v-model="note.title" type="text" />
@@ -33,32 +31,21 @@
 </template>
 
 <script>
+import Message from "@/components/Message.vue";
+
 export default {
+  components: {
+    Message,
+  },
   data() {
     return {
       title: "Notes app",
-      errorMessage: null,
+      message: null,
       note: {
         title: "",
         description: "",
       },
-      notes: [
-        {
-          title: "First Note",
-          description: "Description note",
-          date: new Date(Date.now()).toLocaleString(),
-        },
-        {
-          title: "Second Note",
-          description: "Description note",
-          date: new Date(Date.now()).toLocaleString(),
-        },
-        {
-          title: "Third Note",
-          description: "Description note",
-          date: new Date(Date.now()).toLocaleString(),
-        },
-      ],
+      notes: [],
     };
   },
   methods: {
@@ -66,7 +53,7 @@ export default {
       let { title, description } = this.note;
 
       if (title === "") {
-        this.errorMessage = "title can`t be blank!";
+        this.message = "title can`t be blank!";
         return false;
       }
 
@@ -77,8 +64,14 @@ export default {
       });
       this.note.title = "";
       this.note.description = "";
-      this.errorMessage = null;
+      this.message = null;
     },
   },
 };
 </script>
+ 
+<style lang="scss" scoped>
+.title {
+  text-align: center;
+}
+</style>

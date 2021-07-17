@@ -1,6 +1,11 @@
 <template>
   <div class="notes">
-    <div class="note" v-for="(note, index) in notes" :key="index">
+    <div
+      class="note"
+      :class="{ full: !grid }"
+      v-for="(note, index) in notes"
+      :key="index"
+    >
       <div class="note__header">
         <p>{{ note.title }}</p>
         <button class="btn btn--danger" @click="removeNote(index)">X</button>
@@ -19,6 +24,10 @@ export default {
   props: {
     notes: {
       type: Array,
+      required: true,
+    },
+    grid: {
+      type: Boolean,
       required: true,
     },
   },
@@ -45,6 +54,10 @@ export default {
   padding: 20px;
   margin-bottom: 20px;
   background-color: #ffffff;
+
+  &.full {
+    width: 100%;
+  }
 
   &__header {
     display: flex;

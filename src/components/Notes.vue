@@ -1,5 +1,7 @@
 <template>
   <div class="notes">
+    <p v-if="notes.length === 0" class="notes__empty">no notes</p>
+
     <div
       class="note"
       :class="{ full: !grid }"
@@ -47,6 +49,12 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 40px 0;
+
+  &__empty {
+    margin: 0 auto;
+    font-size: 25px;
+    color: #999999;
+  }
 }
 
 .note {

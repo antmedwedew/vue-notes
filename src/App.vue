@@ -7,7 +7,7 @@
 
           <Message v-if="message" :message="message" />
 
-          <NewNote :note="note" @addNote="addNote" />
+          <NewNote :note="note" @addNote="addNote" @changeRadio="changeRadio" />
 
           <div class="notes-controls">
             <div class="notes-controls__icons">
@@ -21,7 +21,12 @@
             />
           </div>
 
-          <Notes :notes="notesFilter" @remove="removeNote" :grid="grid" />
+          <Notes
+            :notes="notesFilter"
+            @remove="removeNote"
+            :grid="grid"
+            :color="activeColor"
+          />
         </div>
       </section>
     </div>
@@ -53,10 +58,12 @@ export default {
       search: "",
       message: null,
       grid: true,
+      activeColor: "",
       notes: [],
       note: {
         title: "",
         description: "",
+        color: "",
       },
     };
   },
@@ -89,15 +96,21 @@ export default {
       this.notes.push({
         title,
         description,
+        color: this.activeColor,
         date: new Date(Date.now()).toLocaleString(),
       });
       this.note.title = "";
       this.note.description = "";
+      this.activeColor = "";
       this.message = null;
     },
 
     removeNote(index) {
       this.notes.splice(index, 1);
+    },
+
+    changeRadio(color) {
+      this.activeColor = color;
     },
   },
 };

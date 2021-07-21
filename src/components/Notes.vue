@@ -4,7 +4,7 @@
 
     <div
       class="note"
-      :class="{ full: !grid }"
+      :class="({ full: !grid }, `${note.color}`)"
       v-for="(note, index) in notes"
       :key="index"
     >
@@ -30,6 +30,10 @@ export default {
     },
     grid: {
       type: Boolean,
+      required: true,
+    },
+    color: {
+      type: String,
       required: true,
     },
   },
@@ -65,6 +69,14 @@ export default {
 
   &.full {
     width: 100%;
+  }
+
+  &.orange {
+    background-color: #fed330;
+  }
+
+  &.red {
+    background-color: #fc5c65;
   }
 
   &__header {
